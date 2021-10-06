@@ -1,0 +1,25 @@
+{
+  "name": "modules-task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/terazumova/modules-task.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/terazumova/modules-task/issues"
+  },
+  "homepage": "https://github.com/terazumova/modules-task#readme",
+  "dependencies": {
+    "cat-age-calculator": "1.0.6",
+    "flatpickr": "4.6.9",
+    "jquery": "3.6.0",
+    "zxcvbn": "4.4.2"
+  }
+}

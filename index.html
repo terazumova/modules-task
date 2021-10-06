@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+    <title>Модули</title>
+  </head>
+  <body>
+    <section>
+      <h1>How old are you, if you are a cat?</h1>
+      <input class="persons-age__input" />
+      <button class="persons-age__button">Узнать</button>
+      <p class="cats-age__text"></p>
+    </section>
+    <section>
+      <h2>Enter a password</h2>
+      <input class="password" type="password" />
+      <p class="password-strength"></p>
+    </section>
+    <section class="button-section">
+      <h2>Click a button</h2>
+    </section>
+    <script src="node_modules/cat-age-calculator/dist/index_bundle.js"></script>
+    <script src="node_modules/zxcvbn/dist/zxcvbn.js"></script>
+    <script src="node_modules/flatpickr/dist/flatpickr.js"></script>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script>
+      /* Сколько вам лет, если вы котик */
+      const button = document.querySelector('.persons-age__button');
+      const input = document.querySelector('.persons-age__input');
+      const catsAge = document.querySelector('.cats-age__text');
+
+      const datePicker = flatpickr('.persons-age__input', {
+        mode: 'single',
+        enableTime: false,
+      });
+
+      button.addEventListener('click', event => {
+        const year = datePicker.currentYear;
+        const diff = new Date().getFullYear() - year;
+
+        if (diff <= 0) {
+          alert("There's something wrong");
+          return;
+        }
+
+        console.log(catCalculator.getCatAgeObject(diff));
+        catsAge.textContent = `If you are a cat, you are - ${catCalculator.getCatAgeString(diff)}`;
+      });
+
+      /*Сложность пароля*/
+      const password = document.querySelector('.password');
+      const passwordStrength = document.querySelector('.password-strength');
+
+      password.addEventListener('input', event => {
+        if (password.value === '') {
+          passwordStrength.textContent = '';
+          return;
+        }
+
+        const strengthInfo = zxcvbn(password.value, (user_inputs = []));
+        passwordStrength.textContent = `Score - ${strengthInfo.score}`;
+        passwordStrength.textContent += strengthInfo.feedback.warning !== '' ? ` Warning - ${strengthInfo.feedback.warning}` : '';
+      });
+
+      /*J means jQuery*/
+      const $button = $('<button class="jquery-button" type="button">Click</button>');
+      $('body').append($button);
+
+      $('.jquery-button').on('click', function () {
+        console.log('click');
+      });
+    </script>
+  </body>
+</html>
